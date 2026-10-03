@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Bảng tin</title>
+    <style>
+        :root {
+            --fb-blue: #1877F2;
+            --fb-bg: #f0f2f5;
+            --fb-white: #ffffff;
+            --fb-text-dark: #050505;
+            --fb-text-gray: #65676B;
+            --fb-border: #ced0d4;
+            --font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            background-color: var(--fb-bg);
+            color: var(--fb-text-dark);
+            overflow-y: scroll;
+        }
+
+        /* --- Header / Navbar --- */
+        .navbar {
+            background-color: var(--fb-white);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fb-logo {
+            color: var(--fb-blue);
+            font-weight: bold;
+            font-size: 30px;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .search-bar {
+            background-color: #f0f2f5;
+            border-radius: 50px;
+            padding: 8px 15px;
+            color: var(--fb-text-gray);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e4e6eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--fb-text-dark);
+        }
+
+        /* --- Feed Container --- */
+        .feed {
+            max-width: 600px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- Post Component --- */
+        .post {
+            background-color: var(--fb-white);
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .post-time {
+            font-size: 13px;
+            color: var(--fb-text-gray);
+        }
+
+        .post-text {
+            font-size: 15px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .post-image-container {
+            margin: 0 -16px;
+            /* stretch to edges */
+            background: #f8f9fa;
+            /* slightly different bg for the attachment */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- Interactions --- */
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--fb-text-gray);
+            font-size: 13px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--fb-border);
+        }
+
+        .post-actions {
+            display: flex;
+            padding-top: 5px;
+        }
+
+        .action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px 0;
+            color: var(--fb-text-gray);
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: #f0f2f5;
+        }
+
+        /* --- LOTTERY TABLE STYLES (from previous task) --- */
+        .lottery-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--fb-border);
+            /* Resetting some fb styles just in case */
+            color: #333;
+        }
+
+        .kq-header {
+            background-color: #8c9090;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .prize-name {
+            width: 70px;
+            min-width: 70px;
+            padding: 8px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            border-right: 1px solid #ddd;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .prize-numbers {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 5px;
+        }
+
+        .number-box {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .special-prize {
+            color: #d92525;
+            font-size: 1.6rem;
+        }
+
+        .grid-1 {
+            grid-template-columns: 1fr;
+            display: grid;
+            width: 100%;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+            display: grid;
+            width: 100%;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+            display: grid;
+            width: 100%;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+            display: grid;
+            width: 100%;
+        }
+
+        .row-3-cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+        }
+
+        .row-3-cols>div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .row-3-cols>div:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+        .inner-grid-2-rows {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 5px 0;
+            padding: 5px 0;
+        }
+
+        .inner-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 500px) {
+            .kq-header {
+                font-size: 0.9rem;
+            }
+
+            .number-box {
+                font-size: 1.1rem;
+            }
+
+            .inner-number {
+                font-size: 1rem;
+            }
+
+            .special-prize {
+                font-size: 1.4rem;
+            }
+
+            .prize-name {
+                font-size: 0.75rem;
+                width: 55px;
+                min-width: 55px;
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-4 .number-box:nth-child(odd) {
+                border-right: 1px solid #ddd;
+            }
+
+            .grid-4 .number-box:nth-child(1),
+            .grid-4 .number-box:nth-child(2) {
+                border-bottom: 1px solid #ddd;
+            }
+
+            .row-3-cols {
+                grid-template-columns: 1fr;
+            }
+
+            .row-3-cols>div:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="#" class="fb-logo">f</a>
+            <div class="search-bar">
+                <span>🔍</span> Tìm kiếm trên Facebook
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="icon-btn">💬</div>
+            <div class="icon-btn">🔔</div>
+            <div class="icon-btn">👤</div>
+        </div>
+    </div>
+
+    <!-- Main Feed Container -->
+    <div class="feed">
+
+        <!-- Post 1 (Random User Post) -->
+        <div class="post">
+            <div class="post-header">
+                <div class="avatar">👨</div>
+                <div class="post-author-info">
+                    <span class="author-name">Nguyễn Văn A</span>
+                    <span class="post-time">2 giờ trước · 🌍</span>
+                </div>
+            </div>
+            <div class="post-text">Hôm nay trời đẹp quá, cà phê sáng thôi mọi người! ☕☀️</div>
+            <div class="post-stats">
+                <span>👍 Thích: 45</span>
+                <span>12 Bình luận</span>
+            </div>
+            <div class="post-actions">
+                <div class="action-btn">👍 Thích</div>
+                <div class="action-btn">💬 Bình luận</div>
+                <div class="action-btn">↪ Chia sẻ</div>
+            </div>
+        </div>
+
+        <!-- Post 2 (Lottery Page Post) -->
+        <div class="post">
+            <div class="post-header">
+                <div class="avatar" style="background-color: #d92525; color: white;">KQ</div>
+                <div class="post-author-info">
+                    <span class="author-name">Kết Quả Xổ Số Nhanh Nhất ✅</span>
+                    <span class="post-time">Vừa xong · 🌍</span>
+                </div>
+            </div>
+            <div class="post-text">🚨 CẬP NHẬT KẾT QUẢ XỔ SỐ MIỀN BẮC HÔM NAY 🚨
+
+                Bảng vàng hôm nay đã chính thức lộ diện! Chúc mừng các anh em đã rực rỡ đón lộc chiều nay! Nhìn xem giải
+                Đặc Biệt gọi tên con số nào đây? 👇
+
+                ✨ Chia sẻ bài viết này để lan tỏa may mắn, thả ❤️ nếu hôm nay bạn đã trúng mánh nhé!
+                Bình luận ngay 2 số cuối bạn đánh hôm nay xem có ai chung thuyền không nào! 🍀</div>
+
+            <!-- Embed Lottery Table as an "Image Attachment" in the post -->
+            <div class="post-image-container"
+                style="padding: 0; background: none; border-top: 1px solid var(--fb-border); border-bottom: 1px solid var(--fb-border);">
+                <img src="poster.png" alt="Kết quả xổ số Miền Bắc" style="width: 100%; display: block;">
+            </div>
+
+            <div class="post-stats">
+                <span>❤️👍 Thích: 8.9K</span>
+                <span>1.2K Bình luận · 500 Chia sẻ</span>
+            </div>
+            <div class="post-actions">
+                <div class="action-btn">👍 Thích</div>
+                <div class="action-btn">💬 Bình luận</div>
+                <div class="action-btn">↪ Chia sẻ</div>
+            </div>
+        </div>
+
+        <!-- Post 3 (Random Ad) -->
+        <div class="post">
+            <div class="post-header">
+                <div class="avatar" style="background-color: #333; color: white;">ĐH</div>
+                <div class="post-author-info">
+                    <span class="author-name">Đồng Hồ Cao Cấp</span>
+                    <span class="post-time">Được tài trợ · 🌍</span>
+                </div>
+            </div>
+            <div class="post-text">Giảm giá 50% tất cả các mặt hàng. Mua ngay hôm nay! ⌚🔥</div>
+            <div class="post-stats">
+                <span>👍 Thích: 2.1K</span>
+                <span>240 Bình luận</span>
+            </div>
+            <div class="post-actions">
+                <div class="action-btn">👍 Thích</div>
+                <div class="action-btn">💬 Bình luận</div>
+                <div class="action-btn">↪ Chia sẻ</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
