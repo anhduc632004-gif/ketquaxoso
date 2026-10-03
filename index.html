@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Xổ Số Miền Bắc</title>
+    <style>
+        :root {
+            --primary-color: #f1f1f1;
+            --border-color: #ddd;
+            --text-color: #333;
+            --header-bg: #8c9090;
+            --header-text: #fff;
+            --special-prize-color: #d92525;
+            --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 40px 10px;
+            background-color: #e5e5f7;
+            opacity: 1;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #f7f7fc55, #f7f7fc );
+            /* Add a nice lottery-style gradient background */
+            background: linear-gradient(135deg, #a40606 0%, #d98324 100%);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .lottery-container {
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #ffcc00;
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        .row {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .prize-name {
+            width: 80px;
+            min-width: 80px;
+            padding: 10px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border-right: 1px solid var(--border-color);
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .prize-numbers {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 5px;
+        }
+
+        .number-box {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            min-width: 0; /* allows shrinking */
+        }
+        
+        /* Grid definitions for specific rows to match the image layout */
+        .grid-1 { grid-template-columns: 1fr; display: grid; width: 100%; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); display: grid; width: 100%; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); display: grid; width: 100%; }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); display: grid; width: 100%; }
+        
+        .row-3-cols { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; }
+        .row-3-cols > div { display: flex; flex-direction: column; justify-content: center; }
+        .row-3-cols > div:not(:last-child) { border-right: 1px solid var(--border-color); }
+
+        .special-prize {
+            color: var(--special-prize-color);
+            font-size: 1.8rem;
+        }
+
+        .inner-grid-2-rows {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px 0;
+            padding: 5px 0;
+        }
+        
+        .inner-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header {
+                font-size: 1rem;
+                padding: 10px 5px;
+            }
+            .prize-name {
+                width: 60px;
+                min-width: 60px;
+                font-size: 0.8rem;
+            }
+            .number-box {
+                font-size: 1.2rem;
+            }
+            .special-prize {
+                font-size: 1.5rem;
+            }
+            .inner-number {
+                font-size: 1.2rem;
+            }
+            
+            /* Make 4 items wrap to 2x2 on very small screens if needed */
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-4 .number-box:nth-child(odd) {
+                border-right: 1px solid var(--border-color);
+            }
+            .grid-4 .number-box:nth-child(1),
+            .grid-4 .number-box:nth-child(2) {
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .row-3-cols {
+                grid-template-columns: 1fr; /* Stack vertically on small screens */
+            }
+            .row-3-cols > div:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .prize-name {
+                width: 50px;
+                min-width: 50px;
+                font-size: 0.75rem;
+            }
+            .number-box, .inner-number {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="lottery-container">
+    <div class="header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Xổ số Miền Bắc Thứ Sáu 02-10-2026
+    </div>
+
+    <!-- Đặc biệt -->
+    <div class="row">
+        <div class="prize-name">Đặc biệt</div>
+        <div class="prize-numbers grid-1">
+            <div class="number-box special-prize">24483</div>
+        </div>
+    </div>
+
+    <!-- Giải nhất -->
+    <div class="row">
+        <div class="prize-name">Giải nhất</div>
+        <div class="prize-numbers grid-1">
+            <div class="number-box">48799</div>
+        </div>
+    </div>
+
+    <!-- Giải nhì -->
+    <div class="row">
+        <div class="prize-name">Giải nhì</div>
+        <div class="prize-numbers grid-2">
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">63906</div>
+            <div class="number-box">22370</div>
+        </div>
+    </div>
+
+    <!-- Giải ba -->
+    <div class="row">
+        <div class="prize-name">Giải ba</div>
+        <div class="prize-numbers" style="padding: 0;">
+            <div class="row-3-cols">
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">92151</div>
+                    <div class="inner-number">45967</div>
+                </div>
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">85709</div>
+                    <div class="inner-number">17050</div>
+                </div>
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">96557</div>
+                    <div class="inner-number">35145</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Giải tư -->
+    <div class="row">
+        <div class="prize-name">Giải tư</div>
+        <div class="prize-numbers grid-4" style="padding: 0;">
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">2719</div>
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">2206</div>
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">1575</div>
+            <div class="number-box">1644</div>
+        </div>
+    </div>
+
+    <!-- Giải năm -->
+    <div class="row">
+        <div class="prize-name">Giải năm</div>
+        <div class="prize-numbers" style="padding: 0;">
+            <div class="row-3-cols">
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">8754</div>
+                    <div class="inner-number">5685</div>
+                </div>
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">3913</div>
+                    <div class="inner-number">9938</div>
+                </div>
+                <div class="inner-grid-2-rows">
+                    <div class="inner-number">4102</div>
+                    <div class="inner-number">3837</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Giải sáu -->
+    <div class="row">
+        <div class="prize-name">Giải sáu</div>
+        <div class="prize-numbers grid-3" style="padding: 0;">
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">294</div>
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">075</div>
+            <div class="number-box">609</div>
+        </div>
+    </div>
+
+    <!-- Giải bảy -->
+    <div class="row">
+        <div class="prize-name">Giải bảy</div>
+        <div class="prize-numbers grid-4" style="padding: 0;">
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">84</div>
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">65</div>
+            <div class="number-box" style="border-right: 1px solid var(--border-color);">87</div>
+            <div class="number-box">63</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
